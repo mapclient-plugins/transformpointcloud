@@ -1,4 +1,3 @@
-
 '''
 MAP Client Plugin
 '''
@@ -10,4 +9,3 @@ __location__ = 'https://github.com/'
 
 # import class that derives itself from the step mountpoint.
 from mapclientplugins.transformpointcloudstep import step
-
