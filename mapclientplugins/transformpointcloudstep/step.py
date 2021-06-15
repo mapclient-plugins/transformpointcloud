@@ -1,4 +1,3 @@
-
 '''
 MAP Client Plugin Step
 '''
@@ -16,7 +15,7 @@ class TransformPointCloudStep(WorkflowStepMountPoint):
 
     def __init__(self, location):
         super(TransformPointCloudStep, self).__init__('Transform Point Cloud', location)
-        self._configured = False # A step cannot be executed until it has been configured.
+        self._configured = False  # A step cannot be executed until it has been configured.
         self._category = 'Transform'
         # Add any other initialisation code here:
         # Ports:
@@ -30,13 +29,12 @@ class TransformPointCloudStep(WorkflowStepMountPoint):
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#provides',
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#pointcloud'))
         # Port data:
-        self._portData0 = None # http://physiomeproject.org/workflow/1.0/rdf-schema#pointcloud
-        self._portData1 = None # http://physiomeproject.org/workflow/1.0/rdf-schema#affinetransform
-        self._portData2 = None # http://physiomeproject.org/workflow/1.0/rdf-schema#pointcloud
+        self._portData0 = None  # http://physiomeproject.org/workflow/1.0/rdf-schema#pointcloud
+        self._portData1 = None  # http://physiomeproject.org/workflow/1.0/rdf-schema#affinetransform
+        self._portData2 = None  # http://physiomeproject.org/workflow/1.0/rdf-schema#pointcloud
         # Config:
         self._config = {}
         self._config['identifier'] = ''
-
 
     def execute(self):
         '''
@@ -55,9 +53,9 @@ class TransformPointCloudStep(WorkflowStepMountPoint):
         uses port for this step then the index can be ignored.
         '''
         if index == 0:
-            self._portData0 = dataIn # http://physiomeproject.org/workflow/1.0/rdf-schema#pointcloud
+            self._portData0 = dataIn  # http://physiomeproject.org/workflow/1.0/rdf-schema#pointcloud
         elif index == 1:
-            self._portData1 = dataIn # http://physiomeproject.org/workflow/1.0/rdf-schema#affinetransform
+            self._portData1 = dataIn  # http://physiomeproject.org/workflow/1.0/rdf-schema#affinetransform
 
     def getPortData(self, index):
         '''
@@ -65,7 +63,7 @@ class TransformPointCloudStep(WorkflowStepMountPoint):
         The index is the index of the port in the port list.  If there is only one
         provides port for this step then the index can be ignored.
         '''
-        return self._portData2 # http://physiomeproject.org/workflow/1.0/rdf-schema#pointcloud
+        return self._portData2  # http://physiomeproject.org/workflow/1.0/rdf-schema#pointcloud
 
     def configure(self):
         '''
@@ -75,12 +73,12 @@ class TransformPointCloudStep(WorkflowStepMountPoint):
         then set:
             self._configured = True
         '''
-        dlg = ConfigureDialog()
+        dlg = ConfigureDialog(self._main_window)
         dlg.identifierOccursCount = self._identifierOccursCount
         dlg.setConfig(self._config)
         dlg.validate()
         dlg.setModal(True)
-        
+
         if dlg.exec_():
             self._config = dlg.getConfig()
         
@@ -106,7 +104,6 @@ class TransformPointCloudStep(WorkflowStepMountPoint):
         '''
         return json.dumps(self._config, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-
     def deserialize(self, string):
         '''
         Add code to deserialize this step from string.  This method should
@@ -118,5 +115,3 @@ class TransformPointCloudStep(WorkflowStepMountPoint):
         d.identifierOccursCount = self._identifierOccursCount
         d.setConfig(self._config)
         self._configured = d.validate()
-
-
